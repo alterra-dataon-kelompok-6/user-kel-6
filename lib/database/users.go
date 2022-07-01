@@ -27,7 +27,7 @@ func LoginUsers(user *models.User) (interface{}, error) {
 	return user, nil
 }
 
-func GetUsers(user *models.User) (interface{}, error) {
+func GetUsers(user *[]models.User) (interface{}, error) {
 	var err error
 	if err = DB.Find(user).Error; err != nil {
 		return nil, err
@@ -53,6 +53,34 @@ func CreateUser(user *models.User) (interface{}, error) {
 			"` + user.Email + `", "` + user.Address + `", "` + user.Password + `", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
 
 	if err := DB.Exec(sql).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func DeleteUser(user *models.User) (interface{}, error) {
+	var err error
+	if err = DB.Where("ID = ?", user.ID).Delete(user).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func UpdateUser(user *models.User) (interface{}, error) {
+	doUpdate := DB.Table("users").Where("ID IN ?", []int{user.ID}).
+		Updates(map[string]interface{}{
+			"username":   user.Username,
+			"name":       user.Name,
+			"phone":      user.Phone,
+			"email":      user.Email,
+			"address":    user.Address,
+			"password":   user.Password,
+			"updated_at": user.UpdatedAt,
+		})
+
+	if err := doUpdate.Error; err != nil {
 		return nil, err
 	}
 

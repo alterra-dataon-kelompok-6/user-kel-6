@@ -12,6 +12,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var users []models.User
 var guna = models.User{}
 var DB = config.DB
 
@@ -33,7 +34,7 @@ func LoginUsersController(c echo.Context) error {
 
 // get all users
 func GetUsersController(c echo.Context) error {
-	users, e := database.GetUsers(&guna)
+	sers, e := database.GetUsers(&users)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
@@ -41,7 +42,7 @@ func GetUsersController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success get all users",
-		"users":    users,
+		"users":    sers,
 	})
 }
 
@@ -92,9 +93,11 @@ func CreateUserController(c echo.Context) error {
 // delete user by id
 func DeleteUserController(c echo.Context) error {
 	reqId, _ := strconv.Atoi(c.Param("ID"))
+	guna.ID = reqId
+	_, e := database.GetUser(&guna)
 
-	if err := DB.Where("ID = ?", reqId).Delete(&guna).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, "success delete ID "+strconv.Itoa(reqId))
 }
@@ -117,23 +120,14 @@ func UpdateUserController(c echo.Context) error {
 	user.Password = c.FormValue("password")
 	user.UpdatedAt = time.Now()
 
-	doUpdate := DB.Table("users").Where("ID IN ?", []int{ID}).
-		Updates(map[string]interface{}{
-			"username":   user.Username,
-			"name":       user.Name,
-			"phone":      user.Phone,
-			"email":      user.Email,
-			"address":    user.Address,
-			"password":   user.Password,
-			"updated_at": user.UpdatedAt,
-		})
+	use, e := database.CreateUser(&guna)
 
-	if err := doUpdate.Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success update an user",
-		"user":     user,
+		"user":     use,
 	})
 }
