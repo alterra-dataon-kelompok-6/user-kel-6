@@ -12,7 +12,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var users []models.User
 var guna = models.User{}
 var DB = config.DB
 
@@ -34,7 +33,7 @@ func LoginUsersController(c echo.Context) error {
 
 // get all users
 func GetUsersController(c echo.Context) error {
-	users, e := database.GetUser(&guna)
+	users, e := database.GetUsers(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
@@ -48,15 +47,18 @@ func GetUsersController(c echo.Context) error {
 
 // get user by id
 func GetUserController(c echo.Context) error {
-	ID, _ := strconv.Atoi(c.Param("ID"))
-	guna.ID = int(ID)
+	c.Bind(&guna)
 
-	if err := DB.First(&guna, ID).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	ID, _ := strconv.Atoi(c.Param("ID"))
+	guna.ID = ID
+	usr, e := database.GetUser(&guna)
+
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success get an user",
-		"users":    &guna,
+		"users":    usr,
 	})
 }
 
@@ -75,19 +77,15 @@ func CreateUserController(c echo.Context) error {
 	usr.Address = c.FormValue("address")
 	usr.Password = c.FormValue("password")
 
-	strUser_role_id := strconv.Itoa(int(usr.User_role_id))
+	use, e := database.CreateUser(&guna)
 
-	sql := `INSERT INTO users(user_role_id, username, name, phone, email, address, password, created_at, updated_at)
-			VALUES(` + strUser_role_id + `, "` + usr.Username + `", "` + usr.Name + `", "` + usr.Phone + `",
-			"` + usr.Email + `", "` + usr.Address + `", "` + usr.Password + `", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
-
-	if err := DB.Exec(sql).Error; err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success create an user",
-		"users":    usr,
+		"users":    use,
 	})
 }
 

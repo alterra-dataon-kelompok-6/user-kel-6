@@ -1,6 +1,7 @@
 package database
 
 import (
+	"strconv"
 	"user-kel-6/config"
 	"user-kel-6/middlewares"
 	"user-kel-6/models"
@@ -26,9 +27,32 @@ func LoginUsers(user *models.User) (interface{}, error) {
 	return user, nil
 }
 
-func GetUser(user *models.User) (interface{}, error) {
+func GetUsers(user *models.User) (interface{}, error) {
 	var err error
 	if err = DB.Find(user).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func GetUser(user *models.User) (interface{}, error) {
+	var err error
+	if err = DB.First(user, user.ID).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func CreateUser(user *models.User) (interface{}, error) {
+	strUser_role_id := strconv.Itoa(user.User_role_id)
+
+	sql := `INSERT INTO users(user_role_id, username, name, phone, email, address, password, created_at, updated_at)
+			VALUES(` + strUser_role_id + `, "` + user.Username + `", "` + user.Name + `", "` + user.Phone + `",
+			"` + user.Email + `", "` + user.Address + `", "` + user.Password + `", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
+
+	if err := DB.Exec(sql).Error; err != nil {
 		return nil, err
 	}
 
