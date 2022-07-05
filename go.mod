@@ -1,4 +1,4 @@
-module github.com/azkamuhamco
+module user-kel-6
 
 go 1.18
 
@@ -6,8 +6,9 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/labstack/echo/v4 v4.7.2
+	github.com/shopspring/decimal v1.3.1
 	gorm.io/driver/mysql v1.3.4
-	gorm.io/gorm v1.23.6
+	gorm.io/gorm v1.23.7
 )
 
 require (
