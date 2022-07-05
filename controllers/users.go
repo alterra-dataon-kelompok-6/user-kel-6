@@ -50,7 +50,7 @@ func GetUsersController(c echo.Context) error {
 func GetUserController(c echo.Context) error {
 	c.Bind(&guna)
 
-	ID, _ := strconv.Atoi(c.Param("ID"))
+	ID, _ := strconv.Atoi(c.Param("id"))
 	guna.ID = ID
 	usr, e := database.GetUser(&guna)
 
@@ -92,14 +92,14 @@ func CreateUserController(c echo.Context) error {
 
 // delete user by id
 func DeleteUserController(c echo.Context) error {
-	reqId, _ := strconv.Atoi(c.Param("ID"))
+	reqId, _ := strconv.Atoi(c.Param("id"))
 	guna.ID = reqId
 	_, e := database.GetUser(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
-	return c.JSON(http.StatusOK, "success delete ID "+strconv.Itoa(reqId))
+	return c.JSON(http.StatusOK, "success delete id "+strconv.Itoa(reqId))
 }
 
 // update user by id
@@ -109,7 +109,7 @@ func UpdateUserController(c echo.Context) error {
 		return err
 	}
 
-	ID, _ := strconv.Atoi(c.Param("ID"))
+	ID, _ := strconv.Atoi(c.Param("id"))
 
 	user.ID = ID
 	user.Username = c.FormValue("username")

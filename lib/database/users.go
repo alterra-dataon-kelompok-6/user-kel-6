@@ -61,7 +61,7 @@ func CreateUser(user *models.User) (interface{}, error) {
 
 func DeleteUser(user *models.User) (interface{}, error) {
 	var err error
-	if err = DB.Where("ID = ?", user.ID).Delete(user).Error; err != nil {
+	if err = DB.Where("id = ?", user.ID).Delete(user).Error; err != nil {
 		return nil, err
 	}
 
@@ -69,7 +69,7 @@ func DeleteUser(user *models.User) (interface{}, error) {
 }
 
 func UpdateUser(user *models.User) (interface{}, error) {
-	doUpdate := DB.Table("users").Where("ID IN ?", []int{user.ID}).
+	doUpdate := DB.Table("users").Where("id IN ?", []int{user.ID}).
 		Updates(map[string]interface{}{
 			"username":   user.Username,
 			"name":       user.Name,
