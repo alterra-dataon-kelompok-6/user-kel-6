@@ -52,14 +52,14 @@ func GetUserController(c echo.Context) error {
 
 	ID, _ := strconv.Atoi(c.Param("id"))
 	guna.ID = ID
-	usr, e := database.GetUser(&guna)
+	u, e := database.GetUser(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success get an user",
-		"users":    usr,
+		"users":    u,
 	})
 }
 
@@ -78,7 +78,7 @@ func CreateUserController(c echo.Context) error {
 	usr.Address = c.FormValue("address")
 	usr.Password = c.FormValue("password")
 
-	use, e := database.CreateUser(&guna)
+	use, e := database.CreateUser(usr)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
@@ -104,23 +104,20 @@ func DeleteUserController(c echo.Context) error {
 
 // update user by id
 func UpdateUserController(c echo.Context) error {
-	user := new(models.User)
-	if err := c.Bind(user); err != nil {
-		return err
-	}
+	c.Bind(&guna)
 
 	ID, _ := strconv.Atoi(c.Param("id"))
 
-	user.ID = ID
-	user.Username = c.FormValue("username")
-	user.Name = c.FormValue("name")
-	user.Phone = c.FormValue("phone")
-	user.Email = c.FormValue("email")
-	user.Address = c.FormValue("address")
-	user.Password = c.FormValue("password")
-	user.UpdatedAt = time.Now()
+	guna.ID = ID
+	guna.Username = c.FormValue("username")
+	guna.Name = c.FormValue("name")
+	guna.Phone = c.FormValue("phone")
+	guna.Email = c.FormValue("email")
+	guna.Address = c.FormValue("address")
+	guna.Password = c.FormValue("password")
+	guna.UpdatedAt = time.Now()
 
-	use, e := database.CreateUser(&guna)
+	use, e := database.UpdateUser(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())

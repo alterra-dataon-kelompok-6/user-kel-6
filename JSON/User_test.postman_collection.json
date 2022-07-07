@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "f83c3056-e248-4006-823b-28374346de22",
+		"name": "User_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20322228"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/users?user_role_id=2&username=sahal&name=Sahal Mahfudh&phone=081878781212&email=sahal@azka.com&address=Alterra Malang&password=lolosdataon",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "user_role_id",
+							"value": "2"
+						},
+						{
+							"key": "username",
+							"value": "sahal"
+						},
+						{
+							"key": "name",
+							"value": "Sahal Mahfudh"
+						},
+						{
+							"key": "phone",
+							"value": "081878781212"
+						},
+						{
+							"key": "email",
+							"value": "sahal@azka.com"
+						},
+						{
+							"key": "address",
+							"value": "Alterra Malang"
+						},
+						{
+							"key": "password",
+							"value": "lolosdataon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/login?email=sahal@azka.com&password=lolosdataon",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "sahal@azka.com"
+						},
+						{
+							"key": "password",
+							"value": "lolosdataon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzMwMTcsInVzZXJJZCI6OX0.3ZAgSbJrd2r5aXi5I01yvMy5jLgH8HY2wus3Zallkqc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get spesific users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzMyMjQsInVzZXJJZCI6OX0.Pb9fk98nlfW3FfbvZLN1AzhPUbOIhOE6i7NREzinR9k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/users/9",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"users",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzUyNjksInVzZXJJZCI6OX0.rWi2HdmDunXh38M6JLV7sUlZOwa4_-ykufeQ7DYcYCI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/users/9?username=sahal&name=Sahal Mahfudh&phone=081878781212&email=sahal@mahfudh.com&address=Alterra Malang&password=lolosdataon",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"users",
+						"9"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "sahal"
+						},
+						{
+							"key": "name",
+							"value": "Sahal Mahfudh"
+						},
+						{
+							"key": "phone",
+							"value": "081878781212"
+						},
+						{
+							"key": "email",
+							"value": "sahal@mahfudh.com"
+						},
+						{
+							"key": "address",
+							"value": "Alterra Malang"
+						},
+						{
+							"key": "password",
+							"value": "lolosdataon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzUyNjksInVzZXJJZCI6OX0.rWi2HdmDunXh38M6JLV7sUlZOwa4_-ykufeQ7DYcYCI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8088/users/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"users",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

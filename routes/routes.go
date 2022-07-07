@@ -20,10 +20,10 @@ func New() *echo.Echo {
 	e.POST("/login", c.LoginUsersController)
 
 	r.GET("/users", c.GetUsersController)
-	r.GET("/users/:ID", c.GetUserController)
+	r.GET("/users/:id", c.GetUserController)
 	e.POST("/users", c.CreateUserController)
-	r.DELETE("users/:ID", c.DeleteUserController)
-	r.PUT("/users/:ID", c.UpdateUserController)
+	r.DELETE("users/:id", c.DeleteUserController)
+	r.PUT("/users/:id", c.UpdateUserController)
 
 	return e
 }

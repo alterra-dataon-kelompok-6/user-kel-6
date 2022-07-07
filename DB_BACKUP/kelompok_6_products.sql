@@ -35,7 +35,7 @@ CREATE TABLE `products` (
   `description` longtext,
   PRIMARY KEY (`id`),
   KEY `idx_products_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'2022-07-01 20:20:24.318','2022-07-01 20:38:57.035',NULL,2,'Coca Cola',5,4000,'test','Minuman Soda merk Coca Cola'),(2,'2022-07-01 20:20:33.752','2022-07-01 20:38:54.183',NULL,2,'Coca Cola',5,4000,'','Minuman Soda merk Coca Cola');
+INSERT INTO `products` VALUES (1,'2022-07-01 20:20:24.318','2022-07-01 20:38:57.035',NULL,2,'Coca Cola',5,4000,'test','Minuman Soda merk Coca Cola'),(2,'2022-07-01 20:20:33.752','2022-07-07 06:21:01.000',NULL,1,'BISKUAT',5,4000,'','Biskuit sekuat macan'),(3,'2022-07-07 06:21:01.000','2022-07-07 06:21:01.000',NULL,3,'Telur ayam kampung',50,3000,NULL,'dijual satuan');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-05  6:05:01
+-- Dump completed on 2022-07-07 12:52:08
