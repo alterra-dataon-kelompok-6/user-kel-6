@@ -1,7 +1,7 @@
 package database
 
 import (
-	"strconv"
+	"errors"
 	"user-kel-6/config"
 	"user-kel-6/middlewares"
 	"user-kel-6/models"
@@ -12,11 +12,12 @@ var DB = config.DB
 func LoginUsers(user *models.User) (interface{}, error) {
 	var err error
 
-	sql := `SELECT * FROM users WHERE (email = "` + user.Email + `" AND password = "` + user.Password + `") 
-		   AND users.deleted_at IS NULL ORDER BY users.id LIMIT 1`
-
-	if err := DB.Exec(sql).Error; err != nil {
+	if err := DB.Where("email = ? AND password = ?", user.Email, user.Password).Find(&user).Error; err != nil {
 		return nil, err
+	}
+
+	if user.ID == 0 {
+		return nil, errors.New("user not found")
 	}
 
 	user.Token, err = middlewares.CreateToken(user.ID)
@@ -55,13 +56,7 @@ func GetUser(user *models.User) (interface{}, error) {
 }
 
 func CreateUser(user *models.User) (interface{}, error) {
-	strUser_role_id := strconv.FormatUint(uint64(user.User_role_id), 10)
-
-	sql := `INSERT INTO users(user_role_id, username, name, phone, email, address, password, created_at, updated_at)
-			VALUES(` + strUser_role_id + `, "` + user.Username + `", "` + user.Name + `", "` + user.Phone + `",
-			"` + user.Email + `", "` + user.Address + `", "` + user.Password + `", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
-
-	if err := DB.Exec(sql).Error; err != nil {
+	if err := DB.Save(&user).Error; err != nil {
 		return nil, err
 	}
 
