@@ -12,7 +12,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}:8088/register?user_role_id=2&username=mahfudhsahal&name=Sahal Mahfudh&phone=08165432178&email=sahal@mahfudh.com&address=Data On Bintaro&password=lulusmemuaskan",
+					"raw": "{{base_url}}:8088/register?user_role_id=2&username=hafizh&name=Muhammad Hafizh&phone=087878787878&email=hafizh@jogja.com&address=Yogyakarta&password=sosiologi",
 					"host": [
 						"{{base_url}}"
 					],
@@ -27,27 +27,27 @@
 						},
 						{
 							"key": "username",
-							"value": "mahfudhsahal"
+							"value": "hafizh"
 						},
 						{
 							"key": "name",
-							"value": "Sahal Mahfudh"
+							"value": "Muhammad Hafizh"
 						},
 						{
 							"key": "phone",
-							"value": "08165432178"
+							"value": "087878787878"
 						},
 						{
 							"key": "email",
-							"value": "sahal@mahfudh.com"
+							"value": "hafizh@jogja.com"
 						},
 						{
 							"key": "address",
-							"value": "Data On Bintaro"
+							"value": "Yogyakarta"
 						},
 						{
 							"key": "password",
-							"value": "lulusmemuaskan"
+							"value": "sosiologi"
 						}
 					]
 				}
@@ -60,7 +60,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}:8088/login?email=sahal@azka.com&password=lolosdataon",
+					"raw": "{{base_url}}:8088/login?email=hafizh@jogja.com&password=sosiologi",
 					"host": [
 						"{{base_url}}"
 					],
@@ -71,11 +71,11 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "sahal@azka.com"
+							"value": "hafizh@jogja.com"
 						},
 						{
 							"key": "password",
-							"value": "lolosdataon"
+							"value": "sosiologi"
 						}
 					]
 				}
@@ -90,7 +90,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzMyMjQsInVzZXJJZCI6OX0.Pb9fk98nlfW3FfbvZLN1AzhPUbOIhOE6i7NREzinR9k",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcyNzQxMzQsInVzZXJJZCI6MTZ9.igR4wbvkN-F1e6JFF8mZpQM4ycJF1hlvpkHo1WnEPDg",
 							"type": "string"
 						}
 					]
