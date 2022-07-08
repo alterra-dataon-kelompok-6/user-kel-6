@@ -53,14 +53,19 @@ func GetUserController(c echo.Context) error {
 
 	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	guna.ID = uint(ID)
-	u, e := database.GetUser(&guna)
+	_, e := database.GetUser(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success get an user",
-		"users":    u,
+		"ID": guna.ID,
+		"username": guna.Username,
+		"name":     guna.Name,
+		"phone":    guna.Phone,
+		"email":    guna.Email,
+		"address":  guna.Address,
+		"password": guna.Password,
 	})
 }
 
@@ -71,8 +76,7 @@ func CreateUserController(c echo.Context) error {
 		return err
 	}
 
-	int_role_id, _ := strconv.ParseUint(c.FormValue("user_role_id"), 10, 32)
-	usr.User_role_id = uint(int_role_id)
+	usr.User_role_id = 2
 	usr.Username = c.FormValue("username")
 	usr.Name = c.FormValue("name")
 	usr.Phone = c.FormValue("phone")
@@ -80,15 +84,20 @@ func CreateUserController(c echo.Context) error {
 	usr.Address = c.FormValue("address")
 	usr.Password = c.FormValue("password")
 
-	use, e := database.CreateUser(usr)
+	_, e := database.CreateUser(usr)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success create an user",
-		"users":    use,
+		"MESSAGE":  "success create an user",
+		"username": usr.Username,
+		"name":     usr.Name,
+		"phone":    usr.Phone,
+		"email":    usr.Email,
+		"address":  usr.Address,
+		"password": usr.Password,
 	})
 }
 
@@ -126,7 +135,7 @@ func UpdateUserController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success update an user",
-		"user":     use,
+		"MESSAGE": "success update an user",
+		"user":    use,
 	})
 }

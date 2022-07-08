@@ -7,90 +7,100 @@
 	},
 	"item": [
 		{
-			"name": "Register",
+			"name": "POS Register",
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "arilasso",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Ari Lasso",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "08198765431",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "ari@lasso.com",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Jakarta",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "olddewa19",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "{{base_url}}:8088/register?user_role_id=2&username=hafizh&name=Muhammad Hafizh&phone=087878787878&email=hafizh@jogja.com&address=Yogyakarta&password=sosiologi",
+					"raw": "{{base_url}}:8088/register",
 					"host": [
 						"{{base_url}}"
 					],
 					"port": "8088",
 					"path": [
 						"register"
-					],
-					"query": [
-						{
-							"key": "user_role_id",
-							"value": "2"
-						},
-						{
-							"key": "username",
-							"value": "hafizh"
-						},
-						{
-							"key": "name",
-							"value": "Muhammad Hafizh"
-						},
-						{
-							"key": "phone",
-							"value": "087878787878"
-						},
-						{
-							"key": "email",
-							"value": "hafizh@jogja.com"
-						},
-						{
-							"key": "address",
-							"value": "Yogyakarta"
-						},
-						{
-							"key": "password",
-							"value": "sosiologi"
-						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Login",
+			"name": "POS Login",
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "hafizh@jogja.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sosiologi",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "{{base_url}}:8088/login?email=hafizh@jogja.com&password=sosiologi",
+					"raw": "{{base_url}}:8088/login",
 					"host": [
 						"{{base_url}}"
 					],
 					"port": "8088",
 					"path": [
 						"login"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "hafizh@jogja.com"
-						},
-						{
-							"key": "password",
-							"value": "sosiologi"
-						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get spesific users",
+			"name": "POS Get spesific users",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcyNzQxMzQsInVzZXJJZCI6MTZ9.igR4wbvkN-F1e6JFF8mZpQM4ycJF1hlvpkHo1WnEPDg",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcyOTY2NDUsInVzZXJJZCI6MH0.ZoycznkLIPglTMbwF7DlweLa88_ToYD6UDOK8FEqxH4",
 							"type": "string"
 						}
 					]
@@ -98,14 +108,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}:8088/users/9",
+					"raw": "{{base_url}}:8088/users/22",
 					"host": [
 						"{{base_url}}"
 					],
 					"port": "8088",
 					"path": [
 						"users",
-						"9"
+						"22"
 					]
 				}
 			},
