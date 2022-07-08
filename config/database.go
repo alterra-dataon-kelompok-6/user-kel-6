@@ -13,6 +13,8 @@ var DB *gorm.DB
 
 func init() {
 	InitDB()
+	InitMigrate()
+	CreateUserRole()
 }
 
 func InitDB() {
@@ -41,4 +43,14 @@ func ConnString() string {
 	)
 
 	return connectionString
+}
+
+func CreateUserRole() {
+	DB.Exec(`INSERT IGNORE INTO user_roles(id, role) VALUES (1, 'administrator');`)
+	DB.Exec(`INSERT IGNORE INTO user_roles(id, role) VALUES (2, 'customer');`)
+}
+
+func InitMigrate() {
+	DB.AutoMigrate(&models.User_role{})
+	DB.AutoMigrate(&models.User{})
 }

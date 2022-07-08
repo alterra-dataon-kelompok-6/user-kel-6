@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CreateToken(userId int) (string, error) {
+func CreateToken(userId uint) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["userId"] = userId
@@ -17,11 +17,11 @@ func CreateToken(userId int) (string, error) {
 	return token.SignedString([]byte(constants.SECRET_JWT))
 }
 
-func ExtractTokenUserId(e echo.Context) int {
+func ExtractTokenUserId(e echo.Context) uint {
 	user := e.Get("user").(*jwt.Token)
 	if user.Valid {
 		claims := user.Claims.(jwt.MapClaims)
-		userId := claims["userId"].(int)
+		userId := claims["userId"].(uint)
 		return userId
 	}
 	return 0

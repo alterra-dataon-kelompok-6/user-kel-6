@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "3f50b416-116d-4135-a428-721f0c3edef7",
+		"name": "Customer_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20322228"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:8088/register?user_role_id=2&username=mahfudhsahal&name=Sahal Mahfudh&phone=08165432178&email=sahal@mahfudh.com&address=Data On Bintaro&password=lulusmemuaskan",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "8088",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "user_role_id",
+							"value": "2"
+						},
+						{
+							"key": "username",
+							"value": "mahfudhsahal"
+						},
+						{
+							"key": "name",
+							"value": "Sahal Mahfudh"
+						},
+						{
+							"key": "phone",
+							"value": "08165432178"
+						},
+						{
+							"key": "email",
+							"value": "sahal@mahfudh.com"
+						},
+						{
+							"key": "address",
+							"value": "Data On Bintaro"
+						},
+						{
+							"key": "password",
+							"value": "lulusmemuaskan"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:8088/login?email=sahal@azka.com&password=lolosdataon",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "8088",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "sahal@azka.com"
+						},
+						{
+							"key": "password",
+							"value": "lolosdataon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get spesific users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTcxNzMyMjQsInVzZXJJZCI6OX0.Pb9fk98nlfW3FfbvZLN1AzhPUbOIhOE6i7NREzinR9k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:8088/users/9",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "8088",
+					"path": [
+						"users",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost"
+		}
+	]
+}

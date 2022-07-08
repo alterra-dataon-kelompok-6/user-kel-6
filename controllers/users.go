@@ -50,8 +50,8 @@ func GetUsersController(c echo.Context) error {
 func GetUserController(c echo.Context) error {
 	c.Bind(&guna)
 
-	ID, _ := strconv.Atoi(c.Param("id"))
-	guna.ID = ID
+	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+	guna.ID = uint(ID)
 	u, e := database.GetUser(&guna)
 
 	if e != nil {
@@ -70,7 +70,8 @@ func CreateUserController(c echo.Context) error {
 		return err
 	}
 
-	usr.User_role_id, _ = strconv.Atoi(c.FormValue("user_role_id"))
+	int_role_id, _ := strconv.ParseUint(c.FormValue("user_role_id"), 10, 32)
+	usr.User_role_id = uint(int_role_id)
 	usr.Username = c.FormValue("username")
 	usr.Name = c.FormValue("name")
 	usr.Phone = c.FormValue("phone")
@@ -92,23 +93,23 @@ func CreateUserController(c echo.Context) error {
 
 // delete user by id
 func DeleteUserController(c echo.Context) error {
-	reqId, _ := strconv.Atoi(c.Param("id"))
-	guna.ID = reqId
+	reqId, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+	guna.ID = uint(reqId)
 	_, e := database.GetUser(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
-	return c.JSON(http.StatusOK, "success delete id "+strconv.Itoa(reqId))
+	return c.JSON(http.StatusOK, "success delete id "+ strconv.FormatUint(reqId, 10))
 }
 
 // update user by id
 func UpdateUserController(c echo.Context) error {
 	c.Bind(&guna)
 
-	ID, _ := strconv.Atoi(c.Param("id"))
+	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 
-	guna.ID = ID
+	guna.ID = uint(ID)
 	guna.Username = c.FormValue("username")
 	guna.Name = c.FormValue("name")
 	guna.Phone = c.FormValue("phone")

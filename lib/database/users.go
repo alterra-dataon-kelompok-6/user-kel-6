@@ -15,7 +15,7 @@ func LoginUsers(user *models.User) (interface{}, error) {
 		return nil, err
 	}
 
-	user.Token, err = middlewares.CreateToken(int(user.ID))
+	user.Token, err = middlewares.CreateToken(user.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func GetUser(user *models.User) (interface{}, error) {
 }
 
 func CreateUser(user *models.User) (interface{}, error) {
-	strUser_role_id := strconv.Itoa(user.User_role_id)
+	strUser_role_id := strconv.FormatUint(uint64(user.User_role_id), 10)
 
 	sql := `INSERT INTO users(user_role_id, username, name, phone, email, address, password, created_at, updated_at)
 			VALUES(` + strUser_role_id + `, "` + user.Username + `", "` + user.Name + `", "` + user.Phone + `",
@@ -69,7 +69,7 @@ func DeleteUser(user *models.User) (interface{}, error) {
 }
 
 func UpdateUser(user *models.User) (interface{}, error) {
-	doUpdate := DB.Table("users").Where("id IN ?", []int{user.ID}).
+	doUpdate := DB.Table("users").Where("id IN ?", []uint{user.ID}).
 		Updates(map[string]interface{}{
 			"username":   user.Username,
 			"name":       user.Name,

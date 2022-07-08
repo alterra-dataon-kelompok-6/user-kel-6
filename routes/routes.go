@@ -17,13 +17,14 @@ func New() *echo.Echo {
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 
 	// route users
+	e.POST("/register", c.CreateUserController)
 	e.POST("/login", c.LoginUsersController)
 
-	r.GET("/users", c.GetUsersController)
+	// JWT: a user can access other users
 	r.GET("/users/:id", c.GetUserController)
-	e.POST("/users", c.CreateUserController)
-	r.DELETE("users/:id", c.DeleteUserController)
-	r.PUT("/users/:id", c.UpdateUserController)
+
+	// JWT: only edit him/hers
+	// r.PUT("/users/:id", c.UpdateUserController)
 
 	return e
 }
