@@ -7,7 +7,7 @@ import (
 )
 
 type Common struct {
-	ID        uint            `json:"id" gorm:"primarykey;autoIncrement"`
+	ID        uint            `json:"id" query:"id" gorm:"primarykey;autoIncrement"`
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
 	DeletedAt *gorm.DeletedAt `json:"deleted_at" gorm:"index"`

@@ -27,10 +27,9 @@ func LoginUsersController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success login",
-		"email":  guna.Email,
+		"email":    guna.Email,
 		"password": guna.Password,
-		"token": guna.Token,
+		"token":    guna.Token,
 	})
 }
 
@@ -102,7 +101,7 @@ func DeleteUserController(c echo.Context) error {
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
-	return c.JSON(http.StatusOK, "success delete id "+ strconv.FormatUint(reqId, 10))
+	return c.JSON(http.StatusOK, "success delete id "+strconv.FormatUint(reqId, 10))
 }
 
 // update user by id
