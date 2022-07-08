@@ -11,7 +11,11 @@ var DB = config.DB
 
 func LoginUsers(user *models.User) (interface{}, error) {
 	var err error
-	if err = DB.Where("email = ? AND password = ?", user.Email, user.Password).First(user).Error; err != nil {
+
+	sql := `SELECT * FROM users WHERE (email = "` + user.Email + `" AND password = "` + user.Password + `") 
+		   AND users.deleted_at IS NULL ORDER BY users.id LIMIT 1`
+
+	if err := DB.Exec(sql).Error; err != nil {
 		return nil, err
 	}
 
@@ -20,7 +24,12 @@ func LoginUsers(user *models.User) (interface{}, error) {
 		return nil, err
 	}
 
-	if err := DB.Save(user).Error; err != nil {
+	doUpdate := DB.Table("users").Where("id IN ?", []uint{user.ID}).
+		Updates(map[string]interface{}{
+			"token": user.Token,
+		})
+
+	if err := doUpdate.Error; err != nil {
 		return nil, err
 	}
 

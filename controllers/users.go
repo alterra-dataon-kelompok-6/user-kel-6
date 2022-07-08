@@ -21,14 +21,16 @@ func LoginUsersController(c echo.Context) error {
 
 	guna.Email = c.FormValue("email")
 	guna.Password = c.FormValue("password")
-	users, e := database.LoginUsers(&guna)
+	_, e := database.LoginUsers(&guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "success login",
-		"users":  users,
+		"email":  guna.Email,
+		"password": guna.Password,
+		"token": guna.Token,
 	})
 }
 

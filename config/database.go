@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"user-kel-6/constants"
 	"user-kel-6/models"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -27,11 +28,11 @@ func InitDB() {
 
 func ConnString() string {
 	config := models.Config{
-		DB_Username: "root",
-		DB_Password: "1234567",
-		DB_Port:     "3306",
-		DB_Host:     "localhost",
-		DB_Name:     "kelompok_6",
+		DB_Username: constants.DB_USERNAME,
+		DB_Password: constants.DB_PASSWORD,
+		DB_Port:     constants.DB_PORT,
+		DB_Host:     constants.DB_HOST,
+		DB_Name:     constants.DB_NAME,
 	}
 
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
