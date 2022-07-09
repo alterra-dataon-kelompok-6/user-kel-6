@@ -72,7 +72,7 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "azka@alterra.com",
+									"value": "rayoda@azka.com",
 									"type": "text"
 								},
 								{
@@ -193,29 +193,218 @@
 			"name": "NEGATIF",
 			"item": [
 				{
-					"name": "Get users (Id not found)",
+					"name": "Register (field empty)",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
-									"type": "string"
+									"key": "username",
+									"value": "rayoda",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "087155188431",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "rayoda@alterra.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "{{base_url}}:8088/users/22",
+							"raw": "{{base_url}}:8088/register",
 							"host": [
 								"{{base_url}}"
 							],
 							"port": "8088",
 							"path": [
-								"users",
-								"22"
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (email already)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08198765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@alterra.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (username already)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "087155188431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@mantap.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (phone already)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "087155188431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@azka.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"register"
 							]
 						}
 					},
@@ -249,6 +438,389 @@
 							"port": "8088",
 							"path": [
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (password wrong)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "azka@alterra.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "olddewa19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users (Id not found)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:8088/users/22",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"users",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (field empty)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0ODA1NzEsInVzZXJJZCI6Mn0.fgTxB7XPIuYaNBResCk9L4y0-ZleqncQw01rNNsC2iE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "087155188431",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "rayoda@alterra.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (email already)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0ODA1NzEsInVzZXJJZCI6Mn0.fgTxB7XPIuYaNBResCk9L4y0-ZleqncQw01rNNsC2iE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08198765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@azka.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (phone already)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0ODA1NzEsInVzZXJJZCI6Mn0.fgTxB7XPIuYaNBResCk9L4y0-ZleqncQw01rNNsC2iE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08198765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@adiwarna.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (username already)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0ODA1NzEsInVzZXJJZCI6Mn0.fgTxB7XPIuYaNBResCk9L4y0-ZleqncQw01rNNsC2iE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08178765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@adi.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (token invalid)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "tideuohtiduethideu",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda.adi",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08178765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@adi.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
 							]
 						}
 					},

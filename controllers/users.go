@@ -108,6 +108,17 @@ func CreateUserController(c echo.Context) error {
 		})
 	}
 
+	// validasi registered phone number
+	validateUser, err := database.ValidateUser(u.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	} else if !validateUser {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Username is already registered, please use another phone number",
+		})
+	}
+
 	// input ke database
 	_, e := database.CreateUser(u)
 	if e != nil {
@@ -165,6 +176,17 @@ func UpdateUserController(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "Phone number is already registered, please use another phone number",
+		})
+	}
+
+	// validasi registered phone number
+	validateUser, err := database.ValidateUser(guna.Username)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	} else if !validateUser {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Username is already registered, please use another phone number",
 		})
 	}
 

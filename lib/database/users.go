@@ -17,7 +17,7 @@ func LoginUsers(user models.User) (*models.User, error) {
 	}
 
 	if user.ID == 0 {
-		return nil, errors.New("user not found")
+		return nil, errors.New("record not found")
 	}
 
 	user.Token, err = middlewares.CreateToken(user.ID)
@@ -87,6 +87,17 @@ func ValidateEmail(email string) (bool, error) {
 func ValidatePhone(phone string) (bool, error) {
 	var user models.User
 	query := config.DB.Where("phone = ?", phone).Find(&user)
+	if query.Error != nil {
+		return false, query.Error
+	} else if query.RowsAffected != 0 {
+		return false, nil
+	}
+	return true, nil
+}
+
+func ValidateUser(username string) (bool, error) {
+	var user models.User
+	query := config.DB.Where("username = ?", username).Find(&user)
 	if query.Error != nil {
 		return false, query.Error
 	} else if query.RowsAffected != 0 {
