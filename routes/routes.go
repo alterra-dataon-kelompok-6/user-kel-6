@@ -24,7 +24,7 @@ func New() *echo.Echo {
 	r.GET("/users/:id", c.GetUserController)
 
 	// JWT: only edit him/hers
-	// r.PUT("/users/:id", c.UpdateUserController)
+	r.PUT("/profile", c.UpdateUserController)
 
 	return e
 }

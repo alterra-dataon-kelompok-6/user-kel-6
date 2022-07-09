@@ -8,6 +8,7 @@ import (
 	"user-kel-6/config"
 	"user-kel-6/lib/database"
 	"user-kel-6/models"
+	"user-kel-6/middlewares"
 
 	"github.com/labstack/echo/v4"
 )
@@ -30,20 +31,6 @@ func LoginUsersController(c echo.Context) error {
 		"email":    guna.Email,
 		"password": guna.Password,
 		"token":    guna.Token,
-	})
-}
-
-// get all users
-func GetUsersController(c echo.Context) error {
-	sers, e := database.GetUsers(&users)
-
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
-	}
-
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success get all users",
-		"users":    sers,
 	})
 }
 
@@ -101,6 +88,53 @@ func CreateUserController(c echo.Context) error {
 	})
 }
 
+// update user by id
+func UpdateUserController(c echo.Context) error {
+	c.Bind(&guna)
+
+	guna.ID = middlewares.GetUserIdFromToken(c)
+	guna.Username = c.FormValue("username")
+	guna.Name = c.FormValue("name")
+	guna.Phone = c.FormValue("phone")
+	guna.Email = c.FormValue("email")
+	guna.Address = c.FormValue("address")
+	guna.Password = c.FormValue("password")
+	guna.UpdatedAt = time.Now()
+
+	_, e := database.UpdateUser(&guna)
+
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"MESSAGE": "success update an user",
+		"ID":	guna.ID,
+		"username": guna.Username,
+		"name":     guna.Name,
+		"phone":    guna.Phone,
+		"email":    guna.Email,
+		"address":  guna.Address,
+		"password": guna.Password,
+		"updated at": guna.UpdatedAt,
+	})
+}
+
+// FUTURE DEVELOPMENT - FOR ADMINS ONLY
+// get all users
+func GetUsersController(c echo.Context) error {
+	sers, e := database.GetUsers(&users)
+
+	if e != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"messages": "success get all users",
+		"users":    sers,
+	})
+}
+
 // delete user by id
 func DeleteUserController(c echo.Context) error {
 	reqId, _ := strconv.ParseUint(c.Param("id"), 10, 32)
@@ -111,31 +145,4 @@ func DeleteUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
 	}
 	return c.JSON(http.StatusOK, "success delete id "+strconv.FormatUint(reqId, 10))
-}
-
-// update user by id
-func UpdateUserController(c echo.Context) error {
-	c.Bind(&guna)
-
-	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
-
-	guna.ID = uint(ID)
-	guna.Username = c.FormValue("username")
-	guna.Name = c.FormValue("name")
-	guna.Phone = c.FormValue("phone")
-	guna.Email = c.FormValue("email")
-	guna.Address = c.FormValue("address")
-	guna.Password = c.FormValue("password")
-	guna.UpdatedAt = time.Now()
-
-	use, e := database.UpdateUser(&guna)
-
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
-	}
-
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"MESSAGE": "success update an user",
-		"user":    use,
-	})
 }

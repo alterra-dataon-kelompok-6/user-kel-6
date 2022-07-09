@@ -37,15 +37,6 @@ func LoginUsers(user *models.User) (interface{}, error) {
 	return user, nil
 }
 
-func GetUsers(user *[]models.User) (interface{}, error) {
-	var err error
-	if err = DB.Find(user).Error; err != nil {
-		return nil, err
-	}
-
-	return user, nil
-}
-
 func GetUser(user *models.User) (interface{}, error) {
 	var err error
 	if err = DB.First(user, user.ID).Error; err != nil {
@@ -57,15 +48,6 @@ func GetUser(user *models.User) (interface{}, error) {
 
 func CreateUser(user *models.User) (interface{}, error) {
 	if err := DB.Save(&user).Error; err != nil {
-		return nil, err
-	}
-
-	return user, nil
-}
-
-func DeleteUser(user *models.User) (interface{}, error) {
-	var err error
-	if err = DB.Where("id = ?", user.ID).Delete(user).Error; err != nil {
 		return nil, err
 	}
 
@@ -85,6 +67,25 @@ func UpdateUser(user *models.User) (interface{}, error) {
 		})
 
 	if err := doUpdate.Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+// FUTURE DEVELOPMENT - FOR ADMINS ONLY
+func DeleteUser(user *models.User) (interface{}, error) {
+	var err error
+	if err = DB.Where("id = ?", user.ID).Delete(user).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func GetUsers(user *[]models.User) (interface{}, error) {
+	var err error
+	if err = DB.Find(user).Error; err != nil {
 		return nil, err
 	}
 
