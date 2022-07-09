@@ -7,8 +7,8 @@ import (
 
 	"user-kel-6/config"
 	"user-kel-6/lib/database"
-	"user-kel-6/models"
 	"user-kel-6/middlewares"
+	"user-kel-6/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -25,7 +25,7 @@ func LoginUsersController(c echo.Context) error {
 	_, e := database.LoginUsers(&guna)
 
 	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"email":    guna.Email,
@@ -40,13 +40,19 @@ func GetUserController(c echo.Context) error {
 
 	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
 	guna.ID = uint(ID)
-	_, e := database.GetUser(&guna)
 
+	use, e := database.GetUser(&guna)
 	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, e.Error())
+	}
+	if use == false {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "user with requested ID was not found",
+		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"ID": guna.ID,
+		"ID":       guna.ID,
 		"username": guna.Username,
 		"name":     guna.Name,
 		"phone":    guna.Phone,
@@ -58,33 +64,63 @@ func GetUserController(c echo.Context) error {
 
 // create new user
 func CreateUserController(c echo.Context) error {
-	usr := new(models.User)
-	if err := c.Bind(usr); err != nil {
+	u := new(models.User)
+	if err := c.Bind(u); err != nil {
 		return err
 	}
 
-	usr.User_role_id = 2
-	usr.Username = c.FormValue("username")
-	usr.Name = c.FormValue("name")
-	usr.Phone = c.FormValue("phone")
-	usr.Email = c.FormValue("email")
-	usr.Address = c.FormValue("address")
-	usr.Password = c.FormValue("password")
+	u.User_role_id = 2
+	u.Username = c.FormValue("username")
+	u.Name = c.FormValue("name")
+	u.Phone = c.FormValue("phone")
+	u.Email = c.FormValue("email")
+	u.Address = c.FormValue("address")
+	u.Password = c.FormValue("password")
 
-	_, e := database.CreateUser(usr)
-
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+	// Validasi input harus terisi semuanya
+	validateInput, field := database.ValidateInput(u)
+	if !validateInput {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: field + " field is required !!",
+		})
 	}
 
+	// validasi registered email
+	validateEmail, err := database.ValidateEmail(u.Email)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	} else if !validateEmail {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Email is already registered, please use another email",
+		})
+	}
+
+	// validasi registered phone number
+	validatePhone, err := database.ValidatePhone(u.Phone)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	} else if !validatePhone {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Phone number is already registered, please use another phone number",
+		})
+	}
+
+	// input ke database
+	_, e := database.CreateUser(u)
+	if e != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, e.Error())
+	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"MESSAGE":  "success create an user",
-		"username": usr.Username,
-		"name":     usr.Name,
-		"phone":    usr.Phone,
-		"email":    usr.Email,
-		"address":  usr.Address,
-		"password": usr.Password,
+		"username": u.Username,
+		"name":     u.Name,
+		"phone":    u.Phone,
+		"email":    u.Email,
+		"address":  u.Address,
+		"password": u.Password,
 	})
 }
 
@@ -101,21 +137,51 @@ func UpdateUserController(c echo.Context) error {
 	guna.Password = c.FormValue("password")
 	guna.UpdatedAt = time.Now()
 
-	_, e := database.UpdateUser(&guna)
-
-	if e != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, e.Error())
+	// Validasi input harus terisi semuanya
+	validateInput, field := database.ValidateInput(&guna)
+	if !validateInput {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: field + " field is required !!",
+		})
 	}
 
+	// validasi registered email
+	validateEmail, err := database.ValidateEmail(guna.Email)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	} else if !validateEmail {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Email is already registered, please use another email",
+		})
+	}
+
+	// validasi registered phone number
+	validatePhone, err := database.ValidatePhone(guna.Phone)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	} else if !validatePhone {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Status:  "fail",
+			Message: "Phone number is already registered, please use another phone number",
+		})
+	}
+
+	// input ke database
+	_, e := database.CreateUser(&guna)
+	if e != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, e.Error())
+	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"MESSAGE": "success update an user",
-		"ID":	guna.ID,
-		"username": guna.Username,
-		"name":     guna.Name,
-		"phone":    guna.Phone,
-		"email":    guna.Email,
-		"address":  guna.Address,
-		"password": guna.Password,
+		"MESSAGE":    "success update an user",
+		"ID":         guna.ID,
+		"username":   guna.Username,
+		"name":       guna.Name,
+		"phone":      guna.Phone,
+		"email":      guna.Email,
+		"address":    guna.Address,
+		"password":   guna.Password,
 		"updated at": guna.UpdatedAt,
 	})
 }

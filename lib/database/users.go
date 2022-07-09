@@ -73,6 +73,45 @@ func UpdateUser(user *models.User) (interface{}, error) {
 	return user, nil
 }
 
+func ValidateEmail(email string) (bool, error) {
+	var user models.User
+	query := config.DB.Where("email = ?", email).Find(&user)
+	if query.Error != nil {
+		return false, query.Error
+	} else if query.RowsAffected != 0 {
+		return false, nil
+	}
+	return true, nil
+}
+
+func ValidatePhone(phone string) (bool, error) {
+	var user models.User
+	query := config.DB.Where("phone = ?", phone).Find(&user)
+	if query.Error != nil {
+		return false, query.Error
+	} else if query.RowsAffected != 0 {
+		return false, nil
+	}
+	return true, nil
+}
+
+func ValidateInput(user *models.User) (bool, string) {
+	switch {
+	case user.Name == "":
+		return false, "name"
+	case user.Email == "":
+		return false, "email"
+	case user.Phone == "":
+		return false, "phone"
+	case user.Password == "":
+		return false, "password"
+	case user.Address == "":
+		return false, "address"
+	}
+
+	return true, ""
+}
+
 // FUTURE DEVELOPMENT - FOR ADMINS ONLY
 func DeleteUser(user *models.User) (interface{}, error) {
 	var err error

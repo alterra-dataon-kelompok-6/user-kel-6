@@ -7,182 +7,254 @@
 	},
 	"item": [
 		{
-			"name": "POS Register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "arilasso",
-							"type": "text"
+			"name": "POSITIF",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "087155188431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@alterra.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Depok",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "name",
-							"value": "Ari Lasso",
-							"type": "text"
-						},
-						{
-							"key": "phone",
-							"value": "08198765431",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "ari@lasso.com",
-							"type": "text"
-						},
-						{
-							"key": "address",
-							"value": "Jakarta",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "olddewa19",
-							"type": "text"
+						"url": {
+							"raw": "{{base_url}}:8088/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"register"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base_url}}:8088/register",
-					"host": [
-						"{{base_url}}"
-					],
-					"port": "8088",
-					"path": [
-						"register"
-					]
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "azka@alterra.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get spesific users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:8088/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0NjE1NzEsInVzZXJJZCI6Mn0.6-jB3OwlPnluptISFJOfsibxZZm1vIlDswr9DxOcCJU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rayoda",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Rayoda Adiwarna Rahmazka",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "08198765431",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rayoda@azka.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Yogyakarta",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}:8088/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "POS Edit",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
-							"type": "string"
+			"name": "NEGATIF",
+			"item": [
+				{
+					"name": "Get users (Id not found)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}:8088/users/22",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"users",
+								"22"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "arilasso",
-							"type": "text"
+				{
+					"name": "Login (email not found)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ari@lasso.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "olddewa19",
+									"type": "text"
+								}
+							]
 						},
-						{
-							"key": "name",
-							"value": "Ari Bernadus Lasso",
-							"type": "text"
-						},
-						{
-							"key": "phone",
-							"value": "08198765431",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "ari@lasso.com",
-							"type": "text"
-						},
-						{
-							"key": "address",
-							"value": "Jakarta",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "olddewa19",
-							"type": "text"
+						"url": {
+							"raw": "{{base_url}}:8088/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "8088",
+							"path": [
+								"login"
+							]
 						}
-					]
-				},
-				"url": {
-					"raw": "{{base_url}}:8088/profile",
-					"host": [
-						"{{base_url}}"
-					],
-					"port": "8088",
-					"path": [
-						"profile"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "POS Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "ari@lasso.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "olddewa19",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{base_url}}:8088/login",
-					"host": [
-						"{{base_url}}"
-					],
-					"port": "8088",
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POS Get spesific users",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NTc0MjQ4MDUsInVzZXJJZCI6MjJ9.dQXZwPf2v_8ouRZnHR_hFRzgUx2bQjQcMxB1KNTLStU",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}:8088/users/22",
-					"host": [
-						"{{base_url}}"
-					],
-					"port": "8088",
-					"path": [
-						"users",
-						"22"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	],
 	"variable": [
