@@ -22,15 +22,15 @@ func LoginUsersController(c echo.Context) error {
 
 	guna.Email = c.FormValue("email")
 	guna.Password = c.FormValue("password")
-	_, e := database.LoginUsers(&guna)
+	user, e := database.LoginUsers(guna)
 
 	if e != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, e.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"email":    guna.Email,
-		"password": guna.Password,
-		"token":    guna.Token,
+		"email":    user.Email,
+		"password": user.Password,
+		"token":    user.Token,
 	})
 }
 

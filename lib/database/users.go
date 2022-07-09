@@ -9,7 +9,7 @@ import (
 
 var DB = config.DB
 
-func LoginUsers(user *models.User) (interface{}, error) {
+func LoginUsers(user models.User) (*models.User, error) {
 	var err error
 
 	if err := DB.Where("email = ? AND password = ?", user.Email, user.Password).Find(&user).Error; err != nil {
@@ -25,7 +25,7 @@ func LoginUsers(user *models.User) (interface{}, error) {
 		return nil, err
 	}
 
-	doUpdate := DB.Table("users").Where("id IN ?", []uint{user.ID}).
+	doUpdate := DB.Debug().Table("users").Where("id = ?", user.ID).
 		Updates(map[string]interface{}{
 			"token": user.Token,
 		})
@@ -34,7 +34,7 @@ func LoginUsers(user *models.User) (interface{}, error) {
 		return nil, err
 	}
 
-	return user, nil
+	return &user, nil
 }
 
 func GetUser(user *models.User) (interface{}, error) {
