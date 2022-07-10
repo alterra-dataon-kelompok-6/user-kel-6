@@ -20,7 +20,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
     - name: User
-      uses: actions/user@main
+      uses: actions/checkout@main
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
